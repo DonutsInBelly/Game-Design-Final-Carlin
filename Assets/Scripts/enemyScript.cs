@@ -5,6 +5,7 @@ public class enemyScript : MonoBehaviour
 {
 	public float speed;
 	public Transform player;
+	Spaceship spaceship;
 
 	void FixedUpdate()
 	{
@@ -15,8 +16,15 @@ public class enemyScript : MonoBehaviour
 	}
 
 	// Use this for initialization
-	void Start () {
-	
+	IEnumerator Start () {
+		spaceship = GetComponent<Spaceship> ();
+		while (true) {
+			for (int iter = 0; iter < transform.childCount; iter++) {
+				Transform shotPosition = transform.GetChild (iter);
+				spaceship.shot (shotPosition);
+			}
+			yield return new WaitForSeconds (spaceship.shotDelay);
+		}
 	}
 	
 	// Update is called once per frame

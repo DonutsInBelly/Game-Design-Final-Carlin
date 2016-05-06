@@ -1,29 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-public class Bullet : MonoBehaviour {
-	public float speed = 10;
+public class enemyBullet : MonoBehaviour {
+
+	public int speed = 10;
+	public Rigidbody2D rigid;
 
 	public GameObject explosion;
 
 	// Use this for initialization
 	void Start () {
-		GetComponent <Rigidbody2D> ().velocity = transform.up.normalized*speed;
+		rigid = this.GetComponent<Rigidbody2D> ();
+		rigid.velocity = transform.up.normalized * speed;
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.tag == "Enemy") 
+		if (other.gameObject.tag == "Player")
 		{
 			Instantiate (explosion, other.transform.position, Quaternion.identity);
 			Destroy (other.gameObject);
+
+			SceneManager.LoadScene ("test");
 		}
-		if (other.gameObject.tag != "Player") 
-		{
+		if (other.gameObject.tag != "Enemy") {
 			Instantiate (explosion, this.transform.position, Quaternion.identity);
 			Destroy (this.gameObject);
 		}
-			
 	}
 	
 	// Update is called once per frame

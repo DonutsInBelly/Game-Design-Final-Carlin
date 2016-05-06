@@ -47,9 +47,9 @@ public class playerFollowCamera : MonoBehaviour {
 		//
 
 
-		Vector3 camPosition = cam.ScreenToWorldPoint(new Vector3(player.transform.position.x + 5, player.transform.position.y + 5));
-		camPosition.z = -10;
-		Vector3 dir = camPosition - this.transform.position;
+		Vector3 camPosition = cam.ScreenToWorldPoint (player.transform.rotation * Vector3.up);// new Vector3(player.transform.position.x + 5, player.transform.position.y + 5));
+		//camPosition.z = -10;
+		Vector3 dir = camPosition;// - this.transform.position;
 		if (player.GetComponent<SpriteRenderer> ().isVisible == true) {
 			transform.Translate (dir * 2 * Time.deltaTime);
 		}
